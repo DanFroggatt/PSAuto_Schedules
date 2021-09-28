@@ -21,22 +21,6 @@ ForEach ($directory in $directories)
     Invoke-Expression (Get-Content "C:\GuestAutomation\Modules\CreateDirectory.txt" -Raw)
 }
 
-#-----------map trec shared drive using automation service creds
-
-$drive = "Q:"
-$path = "192.168.150.1\usb"
-$name = "admin"
-$password = "P@55w0rd" | ConvertTo-SecureString -AsPlainText -Force
-Invoke-Expression (Get-Content "C:\GuestAutomation\Modules\MapDrive.txt" -Raw)
-
-#-----------remove trec mapped drive
-
-If ($guestConfig.GuestConfig.NetworkDrives.trecShare -like "false")
-{
-    $drive = "Z:"
-    Invoke-Expression (Get-Content "C:\GuestAutomation\Modules\RemoveMappedDrive.txt" -Raw)
-}
-
 #-----------map network drives
 
 $networkDrives = $guestConfig.SelectNodes("//NetworkDrives/NetworkDrive")
